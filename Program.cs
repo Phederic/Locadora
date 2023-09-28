@@ -1,8 +1,16 @@
+using Locadora.Models.Context;
+using Locadora.Repositories;
+using Locadora.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddTransient<IFilmeRepository, FilmeRepository>();
+builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>();
+builder.Services.AddDbContext<AppDbContext>(x =>
+x.UseSqlServer("Data Source=DESKTOP-MALSHVT\\PRODUTO;Initial Catalog=LocadoraDataBase;Persist Security Info=True;User ID=sa;Password=root;Encrypt=False"));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
